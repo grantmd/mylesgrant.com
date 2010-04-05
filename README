@@ -1,0 +1,5 @@
+My website runs on Appengine, because anything else is overkill. It's a combination of my Twitter feed, my Flickr feed, and very rare blog posts. The blog posts are stored in the datastore fronted with memcached. Flickr and Twitter posts are pulled in via their apis and fronted by memcached.
+
+That is all.
+
+Except that I suck at Python.
