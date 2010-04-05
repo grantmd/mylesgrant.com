@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}mylesgrant.com - {{ photo.title|escape }}{% endblock %}
+
+{% block content %}
+	<div class="span-24">
+		<h2>{{ photo.title|escape }}</h2>
+		<p>
+			{% if photo.is_video %}
+			<video src="{{ photo.playback_url }}" width="{{ photo.width }}" height="{{ photo.height }}" poster="{{ photo.url }}" controls preload="none"></video>
+			{% else %}
+			<a href="http://www.flickr.com/photos/mylesdgrant/{{ photo.id }}/"><img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="Photo on Flickr"></a>
+			{% endif %}
+		</p>
+		<p class="byline">
+			- Is a {% if photo.is_video %}video{% else %}photo{% endif %} from {{ photo.published_dt|timesince }} ago on <a href="http://www.flickr.com/photos/mylesdgrant/">Flickr</a>
+		</p>
+	</div>
+{% endblock %}

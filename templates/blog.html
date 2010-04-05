@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}mylesgrant.com - blog{% endblock %}
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml" title="mylesgrant.com RSS Feed" href="http://www.mylesgrant.com/feed" />
+{% endblock %}
+
+{% block content %}
+	{% for post in posts %}
+	<div class="span-24">
+		<h2>{{ post.title }}</h2>
+		{{ post.body|linebreaks }}
+		<p class="byline">
+			- Is a post from <a href="/braindump/older/{{ post.date_published|date:"Y" }}/{{ post.date_published|date:"m" }}/{{ post.date_published|date:"d" }}/{{ post.stub }}.html">{{ post.date_published|timesince }} ago</a>
+		</p>
+	</div>
+	{% endfor %}
+{% endblock %}

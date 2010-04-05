@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}mylesgrant.com - {{ post.title|escape }}{% endblock %}
+{% block extrahead %}
+<link rel="alternate" type="application/rss+xml" title="mylesgrant.com RSS Feed" href="http://www.mylesgrant.com/feed" />
+{% endblock %}
+
+{% block content %}
+<div class="span-24" id="post">
+	<h2>{{ post.title }}</h2>
+	{{ post.body|linebreaks }}
+	<p class="byline">
+		- Is a post from {{ post.date_published|timesince }} ago
+	</p>
+</div>
+
+{% if comments %}
+<div class="span-23 prepend-1" id="comments">
+	<h3>OMG! There are comments!</h3>
+	<hr />
+
+	{% for comment in comments %}
+	<div class="span-23 comment">
+		{{ comment.body|escape|linebreaks }}
+		<p class="byline">
+			- Is a comment from {% if comment.url %}<a href="{{ comment.url }}">{% endif %}{{ comment.author|escape }}{% if comment.url %}</a>{% endif %} {{ comment.date|timesince }} ago
+		</p>
+	</div>
+	{% endfor %}
+	
+	<hr />
+	<div class="span-24">
+		<p><i>Bummer, further comments are <b>closed</b>.</i></p>
+	</div>
+</div>
+{% endif %}
+{% endblock %}

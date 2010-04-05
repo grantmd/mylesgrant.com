@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+  <title>mylesgrant.com</title>
+  <description></description>
+  <link>http://www.mylesgrant.com</link>
+  <language>en</language>
+  <copyright>Copyright Myles Grant</copyright>
+  <pubDate>{{ posts.0.date_published|date:"D, d M Y H:i:s T" }}</pubDate>
+  {% for post in posts %}
+  <item>
+    <title>{{ post.title|escape }}</title>
+    <link>http://www.mylesgrant.com/braindump/older/{{ post.date_published|date:"Y" }}/{{ post.date_published|date:"m" }}/{{ post.date_published|date:"d" }}/{{ post.stub }}.html</link>
+    <description>
+      <![CDATA[{{ post.body|linebreaks }}]]>
+    </description>
+	<comments>http://www.mylesgrant.com/braindump/older/{{ post.date_published|date:"Y" }}/{{ post.date_published|date:"m" }}/{{ post.date_published|date:"d" }}/{{ post.stub }}.html#comments</comments>
+    <guid>http://www.mylesgrant.com/braindump/older/{{ post.date_published|date:"Y" }}/{{ post.date_published|date:"m" }}/{{ post.date_published|date:"d" }}/{{ post.stub }}.html</guid>
+    <pubDate>{{ post.date_published|date:"D, d M Y H:i:s T" }}</pubDate>
+  </item>
+  {% endfor %}
+</channel>
+</rss>

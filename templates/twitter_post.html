@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}mylesgrant.com - {{ status.title|escape }}{% endblock %}
+
+{% block content %}
+	<div class="span-24">
+		<p>
+			{{ status.title|urlize }}
+		</p>
+		<p class="byline">
+			- Is a toot from {{ status.published_dt|timesince }} ago on <a href="http://twitter.com/myles">Twitter</a>
+		</p>
+	</div>
+{% endblock %}

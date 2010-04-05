@@ -1,0 +1,4 @@
+cron:
+- description: hourly refresh
+  url: /?refresh=1
+  schedule: every 1 hours
