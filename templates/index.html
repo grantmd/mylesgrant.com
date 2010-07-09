@@ -15,6 +15,9 @@
 			{% else %}
 			<a href="http://www.flickr.com/photos/mylesdgrant/{{ entry.id }}/"><img src="{{ entry.url }}" width="{{ entry.width }}" height="{{ entry.height }}" alt="Photo on Flickr"></a>
 			{% endif %}
+			{% if entry.description %}
+			<br />{{ entry.description|escape }}
+			{% endif %}
 		</p>
 		<p class="byline">
 			- Is a {% if entry.is_video %}video{% else %}photo{% endif %} from <a href="/flickr/{{ entry.id }}">{{ entry.published_dt|timesince }} ago</a> on <a href="http://www.flickr.com/photos/mylesdgrant/">Flickr</a>

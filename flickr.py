@@ -70,6 +70,7 @@ class FlickrPostHandler(webapp.RequestHandler):
 						photo['published'] = photo['published'][0] #WTF!?
 						photo['published_dt'] = datetime.datetime.strptime(photo['published'], '%Y-%m-%dT%H:%M:%S')
 						photo['title'] = photo['title']['_content']
+						photo['description'] = photo['description']['_content']
 					else:
 						photo['invalid'] = 1
 					

@@ -22,6 +22,12 @@ handlers:
 - url: /wp
   static_dir: static/wp
 
+- url: /.well-known
+  static_dir: static/.well-known
+
+- url: /profiles
+  static_dir: static/profiles
+
 - url: /(.*\.txt)
   static_files: static/\1
   upload: static/(.*\.txt)

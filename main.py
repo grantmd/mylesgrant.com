@@ -136,7 +136,7 @@ class MainHandler(webapp.RequestHandler):
 		if out is not None and not force_miss:
 			return out
 		else:
-			url = 'http://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=d9cbb312cb2fed2a7c676f8803370472&user_id=35034347347%40N01&extras=date_upload,o_dims,original_format,media&format=json&nojsoncallback=1'
+			url = 'http://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=d9cbb312cb2fed2a7c676f8803370472&user_id=35034347347%40N01&extras=date_upload,o_dims,original_format,media,description&format=json&nojsoncallback=1'
 			result = urlfetch.fetch(url)
 			
 			out = []
@@ -184,6 +184,8 @@ class MainHandler(webapp.RequestHandler):
 					photo['height'] = height
 					photo['ratio'] = ratio
 					photo['type'] = 'flickr'
+					photo['description'] = photo['description']['_content']
+					logging.debug('fetch_flickr photo: %s' % photo)
 					out.append(photo)
 		
 				if len(out):
