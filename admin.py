@@ -18,59 +18,60 @@
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util, template
-from google.appengine.api import memcache, urlfetch
-from django.utils import simplejson
+from google.appengine.api import memcache
 
-import os, feedparser, datetime, time, re
+import os, datetime, re
 
 from blog import *
 
+
 class MainHandler(webapp.RequestHandler):
 
-	def get(self):
-		
-		template_values = {}
-		
-		query = Post.all()
-		query.order('-date_created')
-		posts = query.fetch(20)
-	
-		template_values['posts'] = posts
-				
-		path = os.path.join(os.path.dirname(__file__), 'templates', 'admin_index.html')
-		self.response.out.write(template.render(path, template_values))
+    def get(self):
 
-	def post(self):
-		title = self.request.get('title')
-		
-		p = re.compile('[^a-z0-9\s]')
-		stub = p.sub('', title.lower().strip())
-		
-		p = re.compile('\s+')
-		stub = p.sub('-', stub)
-		
-		body = self.request.get('body')
-	
-		post = Post(author='Myles', title=title, stub=stub, body=body)
-		if (self.request.get('publish')):
-			post.date_published = datetime.datetime.now()
-		post.put()
-		
-		memcache.delete('entries2')
-		memcache.delete('blog_posts')
-		memcache.delete('blog_posts_index')
-		
-		self.redirect('/admin/')
+        template_values = {}
+
+        query = Post.all()
+        query.order('-date_created')
+        posts = query.fetch(20)
+
+        template_values['posts'] = posts
+
+        path = os.path.join(os.path.dirname(__file__), 'templates', 'admin_index.html')
+        self.response.out.write(template.render(path, template_values))
+
+    def post(self):
+        title = self.request.get('title')
+
+        p = re.compile('[^a-z0-9\s]')
+        stub = p.sub('', title.lower().strip())
+
+        p = re.compile('\s+')
+        stub = p.sub('-', stub)
+
+        body = self.request.get('body')
+
+        post = Post(author='Myles', title=title, stub=stub, body=body)
+        if (self.request.get('publish')):
+            post.date_published = datetime.datetime.now()
+        post.put()
+
+        memcache.delete('entries2')
+        memcache.delete('blog_posts')
+        memcache.delete('blog_posts_index')
+
+        self.redirect('/admin/')
+
 
 def main():
-	#logging.getLogger().setLevel(logging.DEBUG)
-	urls = [
-		('/admin/', MainHandler)
-	]
-	application = webapp.WSGIApplication(urls,
-	                                   debug=True)
-	util.run_wsgi_app(application)
+    #logging.getLogger().setLevel(logging.DEBUG)
+    urls = [
+        ('/admin/', MainHandler)
+    ]
+    application = webapp.WSGIApplication(urls,
+                                       debug=True)
+    util.run_wsgi_app(application)
 
 
 if __name__ == '__main__':
-	main()
+    main()
